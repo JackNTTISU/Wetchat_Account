@@ -18,3 +18,4 @@ class News extends Model
     protected $updateTime = 'updated_at';
 }
 
+

@@ -16,3 +16,4 @@ class ContactPoints extends Model
     protected $updateTime = 'updated_at';
 }
 
+

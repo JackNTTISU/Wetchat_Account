@@ -224,3 +224,4 @@ CREATE TABLE `uploads` (
   INDEX `idx_type` (`file_type`, `created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件上传记录';
 
+

@@ -15,3 +15,4 @@ class ContactMessages extends Model
     protected $updateTime = 'updated_at';
 }
 
+

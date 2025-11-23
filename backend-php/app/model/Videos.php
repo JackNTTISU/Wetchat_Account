@@ -19,3 +19,4 @@ class Videos extends Model
     protected $updateTime = 'updated_at';
 }
 
+

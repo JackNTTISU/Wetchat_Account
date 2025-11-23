@@ -18,3 +18,4 @@ class Uploads extends Model
     protected $updateTime = false;
 }
 
+
