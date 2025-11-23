@@ -63,6 +63,7 @@ const menus = [
     label: '了解康立',
     items: [
       { label: '最新资讯', path: '/news' },
+      { label: '视频中心', path: '/videos' },
       { label: '关于康立', path: '/about/brochure' },
       { label: '产品中心', path: '/products/list' },
       { label: '技术方案', path: '/solutions/list' },

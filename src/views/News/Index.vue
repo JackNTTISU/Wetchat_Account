@@ -29,6 +29,46 @@
       </div>
     </div>
 
+    <!-- 精选视频 -->
+    <div class="featured-videos-section">
+      <div class="section-header">
+        <div class="section-title">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="title-icon">
+            <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/>
+            <path d="M719.4 499.1l-296.1-215A15.9 15.9 0 0 0 398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 0 0 0-25.8z" fill="currentColor"/>
+          </svg>
+          精选视频
+        </div>
+        <div class="view-more" @click="goToVideos">
+          更多
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="videos-scroll-container">
+        <div 
+          v-for="video in featuredVideos" 
+          :key="video.id"
+          class="video-card-h"
+          @click="playVideo(video.id)"
+        >
+          <div class="video-thumbnail-h">
+            <img :src="video.thumbnail" :alt="video.title" />
+            <div class="play-btn-overlay">
+              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="play-icon">
+                <circle cx="512" cy="512" r="400" fill="rgba(0,0,0,0.6)"/>
+                <path d="M406.4 332.8l307.2 179.2-307.2 179.2V332.8z" fill="white"/>
+              </svg>
+            </div>
+            <div class="video-duration-h">{{ video.duration }}</div>
+          </div>
+          <div class="video-title-h">{{ video.title }}</div>
+        </div>
+      </div>
+    </div>
+
     <!-- 文章列表 -->
     <div class="news-list">
       <div 
@@ -53,6 +93,34 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
+// 精选视频数据（3-4个推荐视频）
+const featuredVideos = ref([
+  {
+    id: 1,
+    title: '康立智能MES系统产品演示',
+    thumbnail: 'https://via.placeholder.com/300x169/0066CC/ffffff?text=MES系统演示',
+    duration: '05:32'
+  },
+  {
+    id: 4,
+    title: '康立数字企业宣传片',
+    thumbnail: 'https://via.placeholder.com/300x169/0066CC/ffffff?text=企业宣传',
+    duration: '03:25'
+  },
+  {
+    id: 2,
+    title: '家纺行业智能化改造案例',
+    thumbnail: 'https://via.placeholder.com/300x169/00A85A/ffffff?text=家纺案例',
+    duration: '08:15'
+  },
+  {
+    id: 5,
+    title: '智能工具柜使用指南',
+    thumbnail: 'https://via.placeholder.com/300x169/7C4DFF/ffffff?text=工具柜指南',
+    duration: '06:20'
+  }
+])
 
 // 示例文章数据
 const articles = ref([
@@ -129,6 +197,14 @@ const goBack = () => {
 
 const goToDetail = (id) => {
   router.push(`/news/detail/${id}`)
+}
+
+const goToVideos = () => {
+  router.push('/videos')
+}
+
+const playVideo = (id) => {
+  router.push(`/videos/player/${id}`)
 }
 </script>
 
@@ -266,6 +342,143 @@ const goToDetail = (id) => {
   font-weight: 400;
   opacity: 0.95;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 精选视频区域 */
+.featured-videos-section {
+  background: white;
+  padding: 16px 0;
+  margin-bottom: 10px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 12px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+}
+
+.title-icon {
+  width: 20px;
+  height: 20px;
+  color: #0066CC;
+}
+
+.view-more {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.view-more:active {
+  color: #0066CC;
+}
+
+.view-more svg {
+  width: 12px;
+  height: 12px;
+}
+
+.videos-scroll-container {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.videos-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.video-card-h {
+  flex-shrink: 0;
+  width: 260px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.video-card-h:active {
+  transform: scale(0.97);
+}
+
+.video-thumbnail-h {
+  position: relative;
+  width: 100%;
+  height: 146px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.video-thumbnail-h img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-btn-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.1);
+  transition: background 0.2s;
+}
+
+.video-card-h:hover .play-btn-overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.play-icon {
+  width: 48px;
+  height: 48px;
+  transition: transform 0.2s;
+}
+
+.video-card-h:hover .play-icon {
+  transform: scale(1.1);
+}
+
+.video-duration-h {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.video-title-h {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* 文章列表 */

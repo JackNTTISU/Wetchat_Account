@@ -172,6 +172,18 @@ const routes = [
     name: 'EquipmentTPM',
     component: () => import('../views/Technology/EquipmentTPM.vue'),
     meta: { title: '设备TPM管理' }
+  },
+  {
+    path: '/videos',
+    name: 'Videos',
+    component: () => import('../views/Videos/Index.vue'),
+    meta: { title: '视频中心' }
+  },
+  {
+    path: '/videos/player/:id',
+    name: 'VideoPlayer',
+    component: () => import('../views/Videos/Player.vue'),
+    meta: { title: '视频播放' }
   }
 ]
 
